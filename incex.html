@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toufiq Khan — Cloud & AI Builder</title>
+<style>
+:root{--bg:#05060d;--fg:#e8ecff;--mut:#8a92b8;--a:#00f0ff;--b:#8a5cff;--c:#ff3d8b;--card:rgba(255,255,255,.04);--bd:rgba(255,255,255,.1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden;cursor:none}
+@media(hover:none){body{cursor:auto}.cur,.ring{display:none}}
+a{color:inherit;text-decoration:none}
+canvas#bg{position:fixed;inset:0;z-index:0}
+.aurora{position:fixed;inset:0;z-index:0;filter:blur(90px);opacity:.45;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;animation:float 18s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:40vw;height:40vw;background:var(--b);left:-10%;top:-10%}
+.aurora i:nth-child(2){width:35vw;height:35vw;background:var(--a);right:-5%;top:30%;animation-delay:-6s}
+.aurora i:nth-child(3){width:30vw;height:30vw;background:var(--c);left:30%;bottom:-15%;animation-delay:-12s}
+@keyframes float{to{transform:translate(12vw,-8vh) scale(1.3)}}
+.scan{position:fixed;inset:0;z-index:50;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 1px,transparent 1px 3px);mix-blend-mode:multiply}
+.cur{position:fixed;width:8px;height:8px;background:var(--a);border-radius:50%;z-index:100;pointer-events:none;transform:translate(-50%,-50%);box-shadow:0 0 20px var(--a)}
+.ring{position:fixed;width:38px;height:38px;border:1px solid var(--a);border-radius:50%;z-index:99;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s}
+.ring.h{width:70px;height:70px;background:rgba(0,240,255,.12)}
+#loader{position:fixed;inset:0;background:#000;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:monospace;color:var(--a);transition:opacity .8s,visibility .8s}
+#loader.done{opacity:0;visibility:hidden}
+#loader .bar{width:240px;height:3px;background:#112;margin-top:16px;overflow:hidden;border-radius:3px}
+#loader .bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a),var(--c));animation:ld 1.6s forwards}
+@keyframes ld{to{width:100%}}
+nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;backdrop-filter:blur(14px);background:linear-gradient(#05060dcc,transparent)}
+.logo{font-weight:800;letter-spacing:2px;background:linear-gradient(90deg,var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav ul{display:flex;gap:26px;list-style:none;font-size:14px;color:var(--mut)}
+nav li a{position:relative;transition:color .3s}
+nav li a:hover{color:#fff}
+nav li a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--a);transition:width .3s}
+nav li a:hover::after{width:100%}
+@media(max-width:640px){nav ul{display:none}}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--a),var(--b),var(--c));z-index:70;box-shadow:0 0 12px var(--a)}
+section{position:relative;z-index:2;padding:110px 6vw;max-width:1200px;margin:auto}
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.tag{font-family:monospace;color:var(--a);font-size:14px;margin-bottom:14px}
+.glitch{font-size:clamp(44px,10vw,120px);font-weight:900;line-height:1;position:relative;letter-spacing:-2px}
+.glitch::before,.glitch::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;overflow:hidden}
+.glitch::before{color:var(--c);animation:g1 2.5s infinite linear alternate-reverse;clip-path:inset(0 0 60% 0)}
+.glitch::after{color:var(--a);animation:g2 3s infinite linear alternate-reverse;clip-path:inset(60% 0 0 0)}
+@keyframes g1{0%,90%{transform:translate(0)}92%{transform:translate(-5px,2px)}95%{transform:translate(5px,-2px)}100%{transform:translate(-3px,1px)}}
+@keyframes g2{0%,85%{transform:translate(0)}88%{transform:translate(5px,-2px)}93%{transform:translate(-6px,2px)}100%{transform:translate(2px,-1px)}}
+.role{font-size:clamp(18px,3vw,30px);margin:22px 0;color:var(--mut);min-height:1.4em}
+.role span{color:#fff;border-right:3px solid var(--a);padding-right:4px;animation:bl .7s infinite}
+@keyframes bl{50%{border-color:transparent}}
+.lead{max-width:560px;color:var(--mut);line-height:1.7}
+.btns{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap}
+.btn{padding:14px 30px;border-radius:50px;font-weight:600;position:relative;overflow:hidden;border:1px solid var(--a);transition:transform .2s,box-shadow .3s}
+.btn.p{background:linear-gradient(90deg,var(--a),var(--b));border:0;color:#000}
+.btn:hover{box-shadow:0 0 35px rgba(0,240,255,.6)}
+.btn::after{content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover::after{left:140%}
+.orb{position:absolute;right:4vw;top:50%;width:min(36vw,380px);aspect-ratio:1;transform:translateY(-50%);perspective:900px}
+.orb .r{position:absolute;inset:0;border-radius:50%;border:2px solid;animation:spin 10s linear infinite}
+.orb .r:nth-child(1){border-color:var(--a) transparent var(--a) transparent}
+.orb .r:nth-child(2){inset:12%;border-color:transparent var(--c) transparent var(--c);animation-duration:7s;animation-direction:reverse}
+.orb .r:nth-child(3){inset:25%;border-color:var(--b) transparent;animation-duration:5s}
+.orb .core{position:absolute;inset:38%;border-radius:50%;background:radial-gradient(circle,#fff,var(--a) 40%,transparent 70%);animation:pulse 2s infinite;filter:blur(2px)}
+@keyframes spin{to{transform:rotateX(60deg) rotateZ(360deg)}}
+.orb .r{transform:rotateX(60deg)}
+@keyframes pulse{50%{transform:scale(1.4);opacity:.7}}
+@media(max-width:800px){.orb{opacity:.25;right:-10vw}}
+h2{font-size:clamp(30px,5vw,52px);margin-bottom:46px;font-weight:800}
+h2 em{font-style:normal;background:linear-gradient(90deg,var(--a),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.rv{opacity:0;transform:translateY(60px) scale(.96);filter:blur(8px);transition:all .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none;filter:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:30px;position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform .15s,border-color .3s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--x,50%) var(--y,50%),rgba(0,240,255,.18),transparent 40%);opacity:0;transition:opacity .3s}
+.card:hover::before{opacity:1}
+.card:hover{border-color:var(--a)}
+.card h3{font-size:24px;margin-bottom:6px}
+.card .sub{color:var(--c);font-family:monospace;font-size:13px;margin-bottom:14px}
+.card p{color:var(--mut);line-height:1.65;font-size:15px}
+.card .chips{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid var(--bd);color:var(--a);background:rgba(0,240,255,.05)}
+.pic{border-left:2px solid var(--b);padding-left:14px;margin:10px 0;color:var(--mut);font-size:14px;line-height:1.6}
+.pic b{color:#fff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;text-align:center}
+.stat{padding:26px 10px;border-radius:18px;border:1px solid var(--bd);background:var(--card)}
+.stat b{display:block;font-size:46px;background:linear-gradient(var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{color:var(--mut);font-size:13px}
+.skill{margin-bottom:22px}
+.skill>div:first-child{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}
+.skill .t{height:8px;border-radius:8px;background:rgba(255,255,255,.07);overflow:hidden}
+.skill .t i{display:block;height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--a),var(--b),var(--c));background-size:200%;animation:sh 3s linear infinite;transition:width 1.6s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 14px var(--a)}
+@keyframes sh{to{background-position:200% 0}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+.term{background:#02030a;border:1px solid var(--bd);border-radius:14px;font-family:monospace;font-size:14px;overflow:hidden;box-shadow:0 0 40px rgba(138,92,255,.2)}
+.term .h{background:#0c0e1c;padding:10px 14px;display:flex;gap:7px}
+.term .h i{width:11px;height:11px;border-radius:50%;background:#ff5f56}
+.term .h i:nth-child(2){background:#ffbd2e}.term .h i:nth-child(3){background:#27c93f}
+.term pre{padding:18px;min-height:230px;color:#7dffb2;white-space:pre-wrap;line-height:1.7}
+.mq{overflow:hidden;position:relative;z-index:2;border-block:1px solid var(--bd);padding:18px 0;background:rgba(255,255,255,.02)}
+.mq div{display:flex;gap:50px;width:max-content;animation:mq 25s linear infinite;font-size:26px;font-weight:800;color:transparent;-webkit-text-stroke:1px var(--mut);white-space:nowrap}
+.mq span:nth-child(3n){-webkit-text-stroke-color:var(--a)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.contact{text-align:center}
+.contact a.big{display:inline-block;font-size:clamp(22px,5vw,48px);font-weight:800;margin:20px 0;background:linear-gradient(90deg,var(--a),var(--c),var(--b));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite}
+.soc{display:flex;gap:14px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+footer{position:relative;z-index:2;text-align:center;padding:30px;color:var(--mut);font-size:13px}
+</style>
+</head>
+<body>
+<div id="loader"><div>&gt; BOOTING PORTFOLIO.EXE_</div><div class="bar"><b></b></div></div>
+<div id="prog"></div>
+<canvas id="bg"></canvas>
+<div class="aurora"><i></i><i></i><i></i></div>
+<div class="scan"></div>
+<div class="cur"></div><div class="ring"></div>
+
+<nav><a href="#hero" class="logo">&lt;KHAN/&gt;</a>
+<ul><li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#skills">Skills</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+
+<section id="hero">
+<div class="orb"><div class="r"></div><div class="r"></div><div class="r"></div><div class="core"></div></div>
+<div class="tag">// hello, world. i'm</div>
+<h1 class="glitch" data-t="TOUFIQ KHAN">TOUFIQ KHAN</h1>
+<div class="role">I build <span id="type"></span></div>
+<p class="lead">Final-year BCA student in Bangalore, building web apps and AI-powered tools, and now levelling up in cloud computing on AWS.</p>
+<div class="btns"><a href="#projects" class="btn p">View my work</a><a href="#contact" class="btn">Let's talk</a></div>
+</section>
+
+<div class="mq"><div id="mq"></div></div>
+
+<section id="about">
+<h2 class="rv">About <em>me</em></h2>
+<div class="two">
+<div class="rv"><p class="lead" style="max-width:none">I'm a BCA student at Davanagere University, originally from Ranebennur and now based in Bangalore. I learn by shipping: a full multi-role academic platform, an AI voice translator, and a growing list of experiments.<br><br>My focus now is cloud computing. I'm working towards AWS Cloud Practitioner and practising EC2, S3, IAM, Git, Linux and Docker basics, so my projects can be deployed the way real teams ship software.</p></div>
+<div class="stats rv">
+<div class="stat"><b data-n="2">0</b><span>Major Projects</span></div>
+<div class="stat"><b data-n="15">0</b><span>Languages in VOXIFY</span></div>
+<div class="stat"><b data-n="4">0</b><span>User Roles in GYRO</span></div>
+<div class="stat"><b data-n="100" data-s="%">0</b><span>Learning Mode</span></div>
+</div></div>
+</section>
+
+<section id="projects">
+<h2 class="rv">Featured <em>projects</em></h2>
+<div class="grid">
+<div class="card rv">
+<div class="sub">BCA CAPSTONE</div><h3>GYRO</h3>
+<p>A multi-role academic performance monitoring system with dashboards, evaluation tools and AI-based project risk prediction.</p>
+<div class="pic"><b>Problem:</b> academic progress is scattered and hard to track.<br><b>Approach:</b> one platform for Team Lead, Student, Teacher and Admin.<br><b>Impact:</b> early risk visibility and clearer evaluation.</div>
+<div class="chips"><span class="chip">Flask</span><span class="chip">SQLite3</span><span class="chip">Chart.js</span><span class="chip">HTML/CSS/JS</span></div>
+</div>
+<div class="card rv">
+<div class="sub">AI WEB APP</div><h3>VOXIFY</h3>
+<p>An AI-powered voice translation web app. Speak in one language and get streaming translation across 15 languages with voice style presets.</p>
+<div class="pic"><b>Problem:</b> language barriers in live conversation.<br><b>Approach:</b> Web Speech API for voice, Claude API for translation.<br><b>Impact:</b> fast, natural multi-language translation in the browser.</div>
+<div class="chips"><span class="chip">Web Speech API</span><span class="chip">Claude API</span><span class="chip">JavaScript</span></div>
+</div>
+</div>
+</section>
+
+<section id="skills">
+<h2 class="rv">Skills & <em>stack</em></h2>
+<div class="two">
+<div class="rv" id="sk"></div>
+<div class="term rv"><div class="h"><i></i><i></i><i></i></div><pre id="term"></pre></div>
+</div>
+</section>
+
+<section id="contact" class="contact">
+<h2 class="rv">Let's build <em>something</em></h2>
+<p class="lead rv" style="margin:auto">Open to cloud and DevOps internships and fresher roles.</p>
+<a class="big rv" href="mailto:your-email@example.com">your-email@example.com</a>
+<div class="soc rv"><a class="btn" href="#">LinkedIn</a><a class="btn" href="#">GitHub</a><a class="btn" href="#">Resume</a></div>
+</section>
+<footer>© 2026 Toufiq Khan · Crafted with code & caffeine</footer>
+
+<script>
+// loader
+addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('done'),1700));
+// cursor
+let parts=[];
+const cur=document.querySelector('.cur'),ring=document.querySelector('.ring');
+let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function f(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(f)})();
+document.querySelectorAll('a,.card,.stat').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('h'));el.addEventListener('mouseleave',()=>ring.classList.remove('h'))});
+// click burst
+addEventListener('click',e=>{for(let i=0;i<22;i++)parts.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*9,vy:(Math.random()-.5)*9,life:50,burst:1})});
+// particle network
+const cv=document.getElementById('bg'),cx=cv.getContext('2d');let W,H;
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight}rs();addEventListener('resize',rs);
+const N=innerWidth<700?45:95;
+for(let i=0;i<N;i++)parts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6});
+(function draw(){
+ cx.clearRect(0,0,W,H);
+ parts=parts.filter(p=>!p.burst||p.life>0);
+ for(const p of parts){
+  p.x+=p.vx;p.y+=p.vy;
+  if(p.burst){p.life--;p.vx*=.96;p.vy*=.96;cx.fillStyle=`rgba(255,61,139,${p.life/50})`;cx.fillRect(p.x,p.y,3,3);continue}
+  if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+  const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);
+  if(d<140){p.x+=dx/d*2;p.y+=dy/d*2}
+  cx.fillStyle='#00f0ff';cx.beginPath();cx.arc(p.x,p.y,1.6,0,7);cx.fill();
+ }
+ const ps=parts.filter(p=>!p.burst);
+ for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){
+  const d=Math.hypot(ps[i].x-ps[j].x,ps[i].y-ps[j].y);
+  if(d<120){cx.strokeStyle=`rgba(138,92,255,${1-d/120})`;cx.lineWidth=.7;cx.beginPath();cx.moveTo(ps[i].x,ps[i].y);cx.lineTo(ps[j].x,ps[j].y);cx.stroke()}
+ }
+ for(const p of ps){const d=Math.hypot(p.x-mx,p.y-my);if(d<170){cx.strokeStyle=`rgba(0,240,255,${1-d/170})`;cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(mx,my);cx.stroke()}}
+ requestAnimationFrame(draw);
+})();
+// typewriter
+const roles=['web apps.','AI-powered tools.','cloud-ready projects.','things that ship.'];
+let ri=0,ci=0,del=0;const ty=document.getElementById('type');
+(function t(){const w=roles[ri];ty.textContent=w.slice(0,ci);
+ if(!del&&ci++==w.length){del=1;return setTimeout(t,1300)}
+ if(del&&--ci<0){del=0;ci=0;ri=(ri+1)%roles.length}
+ setTimeout(t,del?35:80)})();
+// marquee
+const words=['AWS','CLOUD','PYTHON','FLASK','AI','LINUX','DOCKER','GIT','JAVASCRIPT','SQL'];
+document.getElementById('mq').innerHTML=[...words,...words].map(w=>`<span>${w} ✦</span>`).join('');
+// skills
+const sk=[['HTML / CSS / JavaScript',85],['Python & Flask',78],['AI / API Integration',80],['AWS (EC2, S3, IAM) — learning',45],['Git, Linux & Docker basics',50]];
+document.getElementById('sk').innerHTML=sk.map(s=>`<div class="skill"><div><span>${s[0]}</span><span>${s[1]}%</span></div><div class="t"><i data-w="${s[1]}"></i></div></div>`).join('');
+// terminal
+const lines=['$ whoami','toufiq-khan // bca student + cloud learner','$ aws --version','aws-cli: practitioner track in progress','$ ls projects/','GYRO/  VOXIFY/','$ git commit -m "keep shipping"','[main] 1 file changed, ∞ ideas added','$ _'];
+const te=document.getElementById('term');let li=0,lc=0,started=0;
+function typeTerm(){if(li>=lines.length)return;const L=lines[li];
+ if(lc<=L.length){te.textContent=lines.slice(0,li).join('\n')+(li?'\n':'')+L.slice(0,lc++);setTimeout(typeTerm,L[0]=='$'?60:20)}
+ else{li++;lc=0;setTimeout(typeTerm,350)}}
+// reveal + counters
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');
+ e.target.querySelectorAll('[data-n]').forEach(c=>{const n=+c.dataset.n,s=c.dataset.s||'';let v=0;const st=setInterval(()=>{v+=Math.max(1,n/40);if(v>=n){v=n;clearInterval(st)}c.textContent=Math.round(v)+s},35)});
+ e.target.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');
+ if(e.target.contains(te)&&!started){started=1;typeTerm()}
+ io.unobserve(e.target)}),{threshold:.2});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%3)*.12+'s';io.observe(el)});
+// 3D tilt + spotlight
+document.querySelectorAll('.card').forEach(c=>{
+ c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+  c.style.setProperty('--x',x+'px');c.style.setProperty('--y',y+'px');
+  c.style.transform=`perspective(900px) rotateY(${(x/r.width-.5)*14}deg) rotateX(${-(y/r.height-.5)*14}deg) scale(1.03)`});
+ c.addEventListener('mouseleave',()=>c.style.transform='')});
+// scroll progress + parallax
+addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('prog').style.width=scrollY/(h.scrollHeight-innerHeight)*100+'%';
+ document.querySelector('.orb').style.marginTop=scrollY*-.25+'px'});
+// text scramble on logo hover
+const lg=document.querySelector('.logo'),orig=lg.textContent;
+lg.addEventListener('mouseenter',()=>{let k=0;const iv=setInterval(()=>{lg.textContent=orig.split('').map((ch,i)=>i<k?ch:'#$%&*@?'[Math.floor(Math.random()*8)]).join('');if(++k>orig.length){clearInterval(iv);lg.textContent=orig}},45)});
+</script>
+</body>
+</html>
