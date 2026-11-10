@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Error 404 — Page Not Found 💀😭</title>
+<style>
+:root{--bg:#05060d;--a:#00f0ff;--b:#8a5cff;--c:#ff3d8b;--mut:#8a92b8}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:#e8ecff;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center}
+.aurora{position:fixed;inset:0;filter:blur(90px);opacity:.4;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;animation:fl 14s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:45vw;height:45vw;background:var(--c);left:-10%;top:-10%}
+.aurora i:nth-child(2){width:40vw;height:40vw;background:var(--b);right:-8%;bottom:-10%;animation-delay:-5s}
+@keyframes fl{to{transform:translate(10vw,6vh) scale(1.25)}}
+.scan{position:fixed;inset:0;pointer-events:none;z-index:30;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 1px,transparent 1px 3px)}
+.flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:40}
+.rain{position:fixed;top:-60px;z-index:1;pointer-events:none;animation:drop linear forwards;opacity:.8}
+@keyframes drop{to{transform:translateY(115vh) rotate(var(--r))}}
+.wrap{position:relative;z-index:5;padding:20px;transition:transform .1s}
+.skull-box{position:relative;display:inline-block;cursor:pointer;animation:bob 3s ease-in-out infinite;user-select:none}
+.skull-box:active .skull{animation-duration:.15s}
+@keyframes bob{50%{transform:translateY(-22px) rotate(-4deg)}}
+.skull{font-size:clamp(120px,28vw,240px);line-height:1;display:block;filter:drop-shadow(0 0 40px rgba(0,240,255,.5));animation:shake 4s infinite}
+@keyframes shake{0%,90%,100%{transform:none}92%{transform:translate(-6px,3px) rotate(-3deg)}94%{transform:translate(7px,-3px) rotate(3deg)}96%{transform:translate(-5px,2px)}}
+.tear{position:absolute;top:46%;width:.14em;height:.22em;font-size:clamp(120px,28vw,240px);background:linear-gradient(#bff6ff,var(--a));border-radius:50% 50% 50% 50%/70% 70% 30% 30%;box-shadow:0 0 14px var(--a);opacity:0;animation:cry 1.4s infinite ease-in}
+.tear.l{left:30%}.tear.r{right:30%;animation-delay:.5s}
+.tear.l2{left:33%;animation-delay:.9s}.tear.r2{right:33%;animation-delay:.2s}
+@keyframes cry{0%{transform:translateY(0) scale(.4);opacity:0}15%{opacity:1;transform:translateY(.1em) scale(1)}100%{transform:translateY(1.8em) scale(.8);opacity:0}}
+.orbit{position:absolute;inset:-30px;animation:sp 6s linear infinite;pointer-events:none}
+.orbit span{position:absolute;font-size:34px;top:0;left:50%}
+.orbit span:nth-child(2){top:50%;left:auto;right:-4px}
+.orbit span:nth-child(3){top:auto;bottom:0;left:40%}
+.orbit span:nth-child(4){top:50%;left:-4px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.glitch{font-size:clamp(60px,16vw,150px);font-weight:900;letter-spacing:-3px;line-height:1;position:relative;margin-top:6px}
+.glitch::before,.glitch::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;overflow:hidden}
+.glitch::before{color:var(--c);clip-path:inset(0 0 55% 0);animation:g1 2.2s infinite linear alternate-reverse}
+.glitch::after{color:var(--a);clip-path:inset(55% 0 0 0);animation:g2 2.8s infinite linear alternate-reverse}
+@keyframes g1{0%,88%{transform:translate(0)}90%{transform:translate(-6px,2px)}95%{transform:translate(6px,-2px)}100%{transform:translate(-3px,1px)}}
+@keyframes g2{0%,82%{transform:translate(0)}85%{transform:translate(6px,-2px)}92%{transform:translate(-7px,2px)}100%{transform:translate(2px,-1px)}}
+h2{font-size:clamp(18px,3.5vw,28px);margin:14px 0 8px}
+.msg{color:var(--mut);min-height:1.6em;font-family:monospace;font-size:clamp(13px,2.5vw,16px)}
+.msg b{border-right:2px solid var(--a);animation:bl .7s infinite;font-weight:400;color:#fff}
+@keyframes bl{50%{border-color:transparent}}
+.btns{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.btn{padding:14px 30px;border-radius:50px;font-weight:600;border:1px solid var(--a);color:#fff;text-decoration:none;position:relative;overflow:hidden;transition:box-shadow .3s,transform .2s;background:none;font-size:15px;cursor:pointer}
+.btn.p{background:linear-gradient(90deg,var(--a),var(--b));color:#000;border:0}
+.btn:hover{box-shadow:0 0 35px rgba(0,240,255,.6);transform:translateY(-3px)}
+.btn::after{content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover::after{left:140%}
+.stat{margin-top:22px;font-family:monospace;color:var(--mut);font-size:13px}
+.stat b{color:var(--c);font-size:16px}
+</style>
+</head>
+<body>
+<div class="aurora"><i></i><i></i></div>
+<div class="scan"></div>
+<div class="flash" id="flash"></div>
+
+<div class="wrap" id="wrap">
+  <div class="skull-box" id="skull" title="Click me 💀">
+    <span class="skull">💀</span>
+    <i class="tear l"></i><i class="tear l2"></i><i class="tear r"></i><i class="tear r2"></i>
+    <div class="orbit"><span>😭</span><span>😭</span><span>😭</span><span>😭</span></div>
+  </div>
+  <div class="glitch" data-t="404">404</div>
+  <h2>Oops… this page is dead 💀</h2>
+  <div class="msg"><b id="type"></b></div>
+  <div class="btns">
+    <a class="btn p" href="index.html">🏠 Back to Portfolio</a>
+    <button class="btn" onclick="history.back()">↩ Go Back</button>
+  </div>
+  <div class="stat">tears shed: <b id="tears">0</b> · click the skull for chaos</div>
+</div>
+
+<script>
+const wrap=document.getElementById('wrap'),tearsEl=document.getElementById('tears');
+let tears=0;
+// emoji rain
+const em=['💀','😭','💀','😭','💧','☠️'];
+function rain(n=1,x){
+  for(let i=0;i<n;i++){
+    const s=document.createElement('span');
+    s.className='rain';
+    s.textContent=em[Math.floor(Math.random()*em.length)];
+    s.style.left=(x??Math.random()*100)+(x?'px':'vw');
+    s.style.fontSize=(18+Math.random()*34)+'px';
+    s.style.setProperty('--r',(Math.random()*720-360)+'deg');
+    s.style.animationDuration=(3+Math.random()*4)+'s';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),7500);
+  }
+}
+setInterval(()=>rain(1),350);
+setInterval(()=>{tears+=Math.floor(Math.random()*4)+1;tearsEl.textContent=tears},600);
+// click: flash + shake + emoji explosion
+document.getElementById('skull').addEventListener('click',e=>{
+  const f=document.getElementById('flash');
+  f.style.transition='none';f.style.opacity='.5';
+  requestAnimationFrame(()=>{f.style.transition='opacity .5s';f.style.opacity='0'});
+  for(let i=0;i<30;i++)setTimeout(()=>rain(1,Math.random()*innerWidth),i*20);
+  tears+=50;
+  wrap.animate([{transform:'translate(0)'},{transform:'translate(-14px,6px)'},{transform:'translate(14px,-6px)'},{transform:'translate(-8px,4px)'},{transform:'translate(0)'}],{duration:350});
+});
+// mouse parallax
+addEventListener('mousemove',e=>{
+  const x=(e.clientX/innerWidth-.5)*24,y=(e.clientY/innerHeight-.5)*24;
+  wrap.style.transform=`translate(${x}px,${y}px)`;
+});
+// typewriter messages
+const msgs=['The page you want has left the chat.','Even the server is crying rn.','Error: vibes not found.','This link? Absolutely cooked.','Skill issue… but not yours, the URL’s.'];
+let mi=0,ci=0,del=false;const ty=document.getElementById('type');
+(function t(){
+  const m=msgs[mi];
+  ty.textContent=m.slice(0,ci);
+  if(!del&&ci===m.length){del=true;return setTimeout(t,1600)}
+  if(del&&ci===0){del=false;mi=(mi+1)%msgs.length}
+  ci+=del?-1:1;
+  setTimeout(t,del?25:60);
+})();
+</script>
+</body>
+</html>
